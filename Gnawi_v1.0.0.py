@@ -1,9 +1,9 @@
 import requests
 from termcolor import colored
 
-print(colored("-----------------------------------", 'green'))
-print(colored("|||         Gnawi_v1.0.0         |||", 'green'))
-print(colored("-----------------------------------", 'green'))
+print(colored("-----------------------------------", 'red'))
+print(colored("|||         Gnawi_v1.0.0         |||", 'red'))
+print(colored("-----------------------------------", 'red'))
 
 def main():
     try:
