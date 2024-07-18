@@ -3,9 +3,19 @@ import os
 from termcolor import colored
 
 def banner():
-    print(colored("-----------------------------------",'red', attrs=['bold']))
-    print(colored("|||          GnawiX1            |||" ,'blue', attrs=['bold'])) 
-    print(colored("-----------------------------------", 'red',  attrs=['bold']))
+    banner_text = """
+-----------------------------------
+|||                              |||
+|||        GnawiX1 Scanner       |||
+|||                              |||
+-----------------------------------
+"""
+    print(colored("-----------------------------------", 'red', attrs=['bold']))
+    print(colored("|||                              |||", 'cyan', attrs=['bold']))
+    print(colored("|||", 'cyan', attrs=['bold']) + colored("        GnawiX1 Scanner       ", 'yellow', attrs=['bold']) + colored("|||", 'cyan', attrs=['bold']))
+    print(colored("|||                              |||", 'cyan', attrs=['bold']))
+    print(colored("-----------------------------------", 'red', attrs=['bold']))
+    
 def get_robots_txt(Domain):
     try:
         url = f"https://{Domain}/robots.txt"
