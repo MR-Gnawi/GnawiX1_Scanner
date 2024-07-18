@@ -1,28 +1,39 @@
 import requests
+import os
 from termcolor import colored
 
 def banner():
     print(colored("-----------------------------------",'red', attrs=['bold']))
     print(colored("|||          GnawiX1            |||" ,'blue', attrs=['bold'])) 
     print(colored("-----------------------------------", 'red',  attrs=['bold']))
+def get_robots_txt(Domain):
+    try:
+        url = f"https://{Domain}/robots.txt"
+        response = requests.get(url)
+        return response.text # tete
+    except requests.exceptions.ConnectionError as err1:
+        print(colored(err1, 'red', attrs=['bold']))
+    except requests.exceptions.HTTPError as err2:
+        print(colored(err2, 'red', attrs=['bold']))
+def save_robots_txt(Domain,tete):
+    mkdir = os.mkdir(Domain)
+    cd = os.chdir(Domain)
+    filename = f"{Domain}_robots.txt"    
+    with open(filename , 'w') as file:
+        file.write(tete)
+    print(colored(f"Save File >> {Domain}",'yellow', attrs=['bold']))
 def main():
-    Exi_T = True
-    loop = True
-    while loop == True and Exi_T == True:
+    banner()
+    while True:
         try:
-            Domain = input(colored("""Enter To Domain (Example >> "example.com") """ , 'blue' , attrs=['bold']))
-            x = colored("Hello " , 'red')
-            page = f"https://{Domain}/robots.txt"
-            req = requests.get(page).text  
-        except requests.exceptions.ConnectionError as err1:
-            print(colored(err1 , 'red' , attrs=['bold']))
-        except KeyboardInterrupt:
-            Exi_T = False
-        else:
-            print(req)
-            with open(f"{Domain}_robots.txt","w") as f:
-                   f.write(req)
-            print(colored("Save File >> " + Domain + "_robots.txt",'yellow', attrs=['bold']))
-            loop = False
-banner() 
-main()
+            domain = input(colored("Enter the domain (e.g., 'example.com'): ", 'blue', attrs=['bold']))
+            tete = get_robots_txt(domain)
+            if tete:
+                print(tete)
+                save_robots_txt(domain,tete)
+                break
+        except KeyboardInterrupt as err1:
+            print(err1)
+            break
+if __name__ == "__main__":
+    main()
